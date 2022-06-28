@@ -6,3 +6,5 @@ projects/sportShopBot/downloads/
 
 projects/sportShop/*/__pycache__
 
+projects/sportShop/*/migrations/
+!/projects/sportShop/*/migrations/__init__.py
