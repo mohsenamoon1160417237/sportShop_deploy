@@ -23,7 +23,7 @@ services:
     depends_on:
       - open_vpn
     env_file:
-      - .env
+      - projects/sportShopBot/.env
     entrypoint: /main.sh
     volumes:
       - ./projects/sportShopBot:/sportShopBot
