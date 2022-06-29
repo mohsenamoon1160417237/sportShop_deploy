@@ -111,7 +111,6 @@ services:
     entrypoint: /celery.sh
     depends_on:
       - postgres
-      - rabbitmq
     volumes:
       - sport_shop_volume:/sportShop
     env_file:
