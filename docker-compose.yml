@@ -60,8 +60,6 @@ services:
       - rabbitmq
     env_file:
       - helpers/env/main.env
-    links:
-      - "postgres:postgres"
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -115,9 +113,6 @@ services:
       - sport_shop_volume:/sportShop
     env_file:
       - helpers/env/main.env
-    links:
-      - "rabbitmq:rabbitmq"
-      - "postgres:postgres"
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -136,8 +131,6 @@ services:
       - rabbitmq
     volumes:
       - sport_shop_volume:/sportShop
-    links:
-      - "postgres:postgres"
     env_file:
       - helpers/env/main.env
     environment:
