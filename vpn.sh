@@ -3,7 +3,6 @@
 docker run -d \
 --name=sportShop_openVpn \
 --cap-add=NET_ADMIN \
---network=openVpn_network \
 -p 8181:8181 \
 -p 3000:3000 \
 -p 5432:5432 \

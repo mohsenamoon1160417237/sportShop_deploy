@@ -32,6 +32,7 @@ services:
     volumes:
       - ./projects/sportShopBot:/sportShopBot
     container_name: sportShop_bot
+    network_mode: container:sportShop_openVpn
     restart: always
 
   postgres:
@@ -48,8 +49,7 @@ services:
     env_file:
       - helpers/env/main.env
     container_name: sportShop_postgres
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     restart: always
 
   api:
@@ -61,6 +61,8 @@ services:
       - rabbitmq
     env_file:
       - helpers/env/main.env
+    links:
+      - "postgres:postgres"
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -68,8 +70,7 @@ services:
     volumes:
       - sport_shop_volume:/sportShop
     container_name: sportShop_api
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     restart: always
 
   nginx:
@@ -84,8 +85,9 @@ services:
      # - ./certbot/conf:/etc/letsencrypt
      # - ./certbot/www:/var/www/certbot
     container_name: sportShop_nginx
-    networks:
-      - openVpn_network
+    links:
+      - "api:api"
+    network_mode: container:sportShop_openVpn
     restart: always
 
   certbot:
@@ -94,8 +96,7 @@ services:
     container_name: sportShop_certbot
     env_file:
       - helpers/env/main.env
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     #volumes:
      # - ./certbot/www/:/var/www/certbot/:rw
      # - ./certbot/conf:/etc/letsencrypt
@@ -107,8 +108,7 @@ services:
     container_name: sportShop_rabbitmq
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     restart: always
 
   celery:
@@ -122,14 +122,16 @@ services:
       - sport_shop_volume:/sportShop
     env_file:
       - helpers/env/main.env
+    links:
+      - "rabbitmq:rabbitmq"
+      - "postgres:postgres"
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     restart: always
 
   celery-beat:
@@ -141,6 +143,8 @@ services:
       - rabbitmq
     volumes:
       - sport_shop_volume:/sportShop
+    links:
+      - "postgres:postgres"
     env_file:
       - helpers/env/main.env
     environment:
@@ -149,8 +153,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery_beat
-    networks:
-      - openVpn_network
+    network_mode: container:sportShop_openVpn
     restart: always
 
 volumes:
@@ -159,9 +162,4 @@ volumes:
   nginx_log_volume:
   nginx_conf:
   rabbitmq_data:
-
-networks:
-  openVpn_network:
-    driver: bridge
-    name: openVpn_network
 
