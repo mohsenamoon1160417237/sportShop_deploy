@@ -102,7 +102,7 @@ services:
     container_name: sportShop_rabbitmq
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    network_mode: container:sport_shop_celery
+    network_mode: service:celery
     restart: always
 
   celery:
