@@ -33,8 +33,6 @@ services:
       - ./projects/sportShopBot:/sportShopBot
     container_name: sportShop_bot
     network_mode: container:sportShop_openVpn
-    ports:
-      - 3000:3000
     restart: always
 
   postgres:
