@@ -139,7 +139,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',)
 }
 
-
+# amqp://rabbitmq:5672 ghabli
 CELERY_BROKER_URL = 'amqp://guest:guest@86.104.32.99:5672'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
