@@ -32,7 +32,6 @@ services:
     volumes:
       - ./projects/sportShopBot:/sportShopBot
     container_name: sportShop_bot
-    network_mode: container:open_vpn
     restart: always
 
   postgres:
@@ -49,7 +48,8 @@ services:
     env_file:
       - helpers/env/main.env
     container_name: sportShop_postgres
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
   api:
@@ -68,7 +68,8 @@ services:
     volumes:
       - sport_shop_volume:/sportShop
     container_name: sportShop_api
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
   nginx:
@@ -83,7 +84,8 @@ services:
      # - ./certbot/conf:/etc/letsencrypt
      # - ./certbot/www:/var/www/certbot
     container_name: sportShop_nginx
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
   certbot:
@@ -92,7 +94,8 @@ services:
     container_name: sportShop_certbot
     env_file:
       - helpers/env/main.env
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     #volumes:
      # - ./certbot/www/:/var/www/certbot/:rw
      # - ./certbot/conf:/etc/letsencrypt
@@ -104,7 +107,8 @@ services:
     container_name: sportShop_rabbitmq
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
   celery:
@@ -124,7 +128,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
   celery-beat:
@@ -144,7 +149,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery_beat
-    network_mode: container:open_vpn
+    networks:
+      - openVpn_network
     restart: always
 
 volumes:
@@ -153,3 +159,9 @@ volumes:
   nginx_log_volume:
   nginx_conf:
   rabbitmq_data:
+
+networks:
+  openVpn_network:
+    driver: bridge
+    name: openVpn_network
+
