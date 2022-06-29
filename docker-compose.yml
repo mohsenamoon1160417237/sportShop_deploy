@@ -147,4 +147,3 @@ volumes:
   nginx_log_volume:
   nginx_conf:
   rabbitmq_data:
-
