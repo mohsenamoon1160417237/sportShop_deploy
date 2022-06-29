@@ -13,7 +13,7 @@ def set_db(is_docker: bool):
             'NAME': 'sportshop_postgres',
             'USER': 'postgres',
             'PASSWORD': 'mohsen1160417237',
-            'HOST': 'postgres',
+            'HOST': '86.104.32.99',
             'port': 5432
         }
 
