@@ -8,8 +8,6 @@ docker run -d \
 -p 5432:5432 \
 -p 80:80 \
 -p 443:443 \
--p 5672:5672 \
--p 15672:15672 \
 --device=/dev/net/tun \
 -v "/$(pwd)/helpers/vpn:/data/vpn" \
 --restart=unless-stopped \
