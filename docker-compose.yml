@@ -2,33 +2,37 @@ version: "3.9"
 
 services:
 
-  open_vpn:
+  #open_vpn:
 
-    image: ghcr.io/wfg/openvpn-client
-    container_name: sportShop_openVpn
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - 8181:8181
-    devices:
-      - /dev/net/tun
-    volumes:
-      - ./helpers/vpn:/data/vpn
-    networks:
-      - open_vpn_network
-    restart: unless-stopped
+   # image: ghcr.io/wfg/openvpn-client
+   # container_name: sportShop_openVpn
+   # cap_add:
+    #  - NET_ADMIN
+    #ports:
+    #  - 8181:8181    #vpn
+    #  - 3000:3000    #bot
+     # - 5432:5432    #postgres
+     # - 80:80        #nginx
+     # - 443:443      #nginx
+     # - 5672:5672    #rabbitmq
+     # - 15672:15672  #rabbitmq
+    #devices:
+    #  - /dev/net/tun
+    #volumes:
+    #  - ./helpers/vpn:/data/vpn
+    #networks:
+    #  - open_vpn_network
+    #restart: unless-stopped
 
   bot:
     build: projects/sportShopBot
-    depends_on:
-      - open_vpn
     env_file:
       - projects/sportShopBot/.env
     entrypoint: /main.sh
     volumes:
       - ./projects/sportShopBot:/sportShopBot
     container_name: sportShop_bot
-    network_mode: service:open_vpn
+    network_mode: container:open_vpn
     restart: always
 
   postgres:
@@ -44,9 +48,8 @@ services:
       PGPORT: 5432
     env_file:
       - helpers/env/main.env
-    ports:
-      - 5432:5432
     container_name: sportShop_postgres
+    network_mode: container:open_vpn
     restart: always
 
   api:
@@ -65,6 +68,7 @@ services:
     volumes:
       - sport_shop_volume:/sportShop
     container_name: sportShop_api
+    network_mode: container:open_vpn
     restart: always
 
   nginx:
@@ -79,9 +83,7 @@ services:
      # - ./certbot/conf:/etc/letsencrypt
      # - ./certbot/www:/var/www/certbot
     container_name: sportShop_nginx
-    ports:
-      - 80:80
-      - 443:443
+    network_mode: container:open_vpn
     restart: always
 
   certbot:
@@ -90,6 +92,7 @@ services:
     container_name: sportShop_certbot
     env_file:
       - helpers/env/main.env
+    network_mode: container:open_vpn
     #volumes:
      # - ./certbot/www/:/var/www/certbot/:rw
      # - ./certbot/conf:/etc/letsencrypt
@@ -101,9 +104,7 @@ services:
     container_name: sportShop_rabbitmq
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
+    network_mode: container:open_vpn
     restart: always
 
   celery:
@@ -123,7 +124,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery
-    network_mode: service:open_vpn
+    network_mode: container:open_vpn
     restart: always
 
   celery-beat:
@@ -143,6 +144,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: sport_shop_user:sport_shop_group
     container_name: sport_shop_celery_beat
+    network_mode: container:open_vpn
     restart: always
 
 volumes:
@@ -151,8 +153,3 @@ volumes:
   nginx_log_volume:
   nginx_conf:
   rabbitmq_data:
-
-networks:
-  open_vpn_network:
-    driver: bridge
-    name: open_vpn_network
