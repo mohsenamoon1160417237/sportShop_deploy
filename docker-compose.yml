@@ -81,7 +81,7 @@ services:
     volumes:
       - sport_shop_volume:/sportShop
       - nginx_log_volume:/var/log/nginx
-      - nginx_conf:/etc/nginx/conf.d/:ro
+      - nginx_conf:/etc/nginx/conf.d/
       #- ./certbot/conf:/etc/nginx/ssl/:ro
       #- ./certbot/www:/var/www/certbot/:ro
     ports:
