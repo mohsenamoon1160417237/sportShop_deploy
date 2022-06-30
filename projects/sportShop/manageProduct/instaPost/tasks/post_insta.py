@@ -37,13 +37,6 @@ class PostInsta:
                     prop.insta_posted = True
                     prop.save()
 
-                if not_posted_props.count() <= 3:
-
-                    prop = not_posted_props.first()
-                    product = prop.product
-                    product.insta_perm = False
-                    product.save()
-
                 self.logger.info("posted!")
 
             elif ls is None:
