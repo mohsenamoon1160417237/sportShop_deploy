@@ -1,5 +1,5 @@
-from projects.sportShop.manageProduct.instaPost.helpers.postCarousel import PostInstagramContent
-from projects.sportShop.manageProduct.instaPost.helpers.PrepareCapt import PrepareCaptionImage
+from ..helpers.postCarousel import PostInstagramContent
+from ..helpers.PrepareCapt import PrepareCaptionImage
 
 from time import sleep
 
