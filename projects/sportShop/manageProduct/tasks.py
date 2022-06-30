@@ -40,6 +40,12 @@ def postInsta():
                 prop.save()
 
             logger.info("posted!")
+
+            prop = props[0]
+            product = prop.product
+            product.insta_perm = False #baad az upload shodane post permissione mahsool dobare false mishavad va baraye
+            product.save()     # post shodane prop haye jadide mahsool moshtari dobare bayad permissione an ra sader konad
+
         else:
 
             logger.info("No result!")
