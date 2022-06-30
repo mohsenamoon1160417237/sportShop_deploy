@@ -81,9 +81,9 @@ services:
     volumes:
       - sport_shop_volume:/sportShop
       - nginx_log_volume:/var/log/nginx
-      - nginx_conf:/etc/nginx/conf.d
-     # - ./certbot/conf:/etc/letsencrypt
-     # - ./certbot/www:/var/www/certbot
+      - nginx_conf:/etc/nginx/conf.d/:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot/:ro
     ports:
       - 80:80
       - 443:443
@@ -96,10 +96,10 @@ services:
     container_name: sportShop_certbot
     env_file:
       - helpers/env/main.env
-    #volumes:
-     # - ./certbot/www/:/var/www/certbot/:rw
-     # - ./certbot/conf:/etc/letsencrypt
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email dramatic225@gmail.com -d quicksmart.pro --agree-tos
+    volumes:
+     - ./certbot/www/:/var/www/certbot/:rw
+     - ./certbot/conf:/etc/letsencrypt/:rw
+    command: certonly --webroot --webroot-path /var/www/certbot/ --force-renewal --email dramatic225@gmail.com -d quicksmart.pro --agree-tos
 
   rabbitmq:
 
