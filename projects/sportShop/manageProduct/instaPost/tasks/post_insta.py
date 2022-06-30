@@ -47,4 +47,4 @@ class PostInsta:
 
                 self.logger.info("No result!")
 
-            sleep(600)
+            sleep(10)

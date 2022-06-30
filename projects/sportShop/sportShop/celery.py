@@ -23,10 +23,10 @@ app.conf.beat_schedule = {
         # Task Name (Name Specified in Decorator)
         'task': 'manageProduct.tasks.refreshAccessToken',
         # Schedule
-        'schedule': crontab(minute='*/1')
-        #'schedule': crontab(minute=0,
-        #                    hour=1,
-        #                    day_of_week='sunday'),
+        #'schedule': crontab(minute='*/1')
+        'schedule': crontab(minute=0,
+                            hour=1,
+                            day_of_week='sunday'),
         # Function Arguments
     },
     #Scheduler Name
@@ -34,7 +34,7 @@ app.conf.beat_schedule = {
         # Task Name (Name Specified in Decorator)
         'task': 'manageProduct.tasks.postInsta',
         # Schedule
-        'schedule': crontab(minute='*/1'),
+        'schedule': crontab(minute='*/2'),
         #'schedule': crontab(minute=0,
         #                    hour='5'),
     }
