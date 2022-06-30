@@ -1,8 +1,8 @@
 from celery import shared_task
 from celery.utils.log import get_task_logger
 
-from instaPost.tasks.getAccessToken import getLongLivedAccessToken
-from instaPost.tasks.post_insta import PostInsta
+from .instaPost.tasks.getAccessToken import getLongLivedAccessToken
+from .instaPost.tasks.post_insta import PostInsta
 
 
 logger = get_task_logger(__name__)
