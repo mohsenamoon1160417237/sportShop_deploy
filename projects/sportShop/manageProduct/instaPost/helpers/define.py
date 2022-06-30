@@ -1,7 +1,7 @@
 import requests
 import json
 
-from manageProduct.models.instaStorage import InstaStorage
+from projects.sportShop.manageProduct.models.instaStorage import InstaStorage
 
 
 def getCreds():

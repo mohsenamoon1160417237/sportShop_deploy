@@ -1,7 +1,7 @@
-from manageProduct.models.defineProduct import DefineProduct
-from manageProduct.models.productProp import ProductProp
-from manageProduct.models.productAttr import ProductAttr
-from manageProduct.models.galleryImage import GalleryImage
+from projects.sportShop.manageProduct.models.defineProduct import DefineProduct
+from projects.sportShop.manageProduct.models.productProp import ProductProp
+from projects.sportShop.manageProduct.models.productAttr import ProductAttr
+from projects.sportShop.manageProduct.models.galleryImage import GalleryImage
 
 from django.db.models import Count, Q
 
@@ -30,13 +30,10 @@ class PrepareCaptionImage:
 
         if prod is None:
             return None
+
         not_posted_props = ProductProp.objects.filter(product=prod,
                                                       insta_posted=False)
-        if not_posted_props.count() >= 3:
-            props = not_posted_props[:3]
-        else:
-            props = not_posted_props
-        return props
+        return not_posted_props
 
     def prepProdText(self, prod):
 
@@ -111,15 +108,23 @@ class PrepareCaptionImage:
     def doPrepareCapt(self):
 
         prod = self.get_prod()
+
         if prod is None:
             return None
-        props = self.get_not_posted_props(prod)
-        if props is None:
+
+        not_posted_props = self.get_not_posted_props(prod)
+
+        if not_posted_props is None:
             return None
 
-        txt = self.prepText(props, prod)
+        if not_posted_props.count() > 3:
+            postable_props = not_posted_props[:3]
+        else:
+            postable_props = not_posted_props
 
-        return [txt, props]
+        txt = self.prepText(postable_props, prod)
+
+        return [txt, not_posted_props, postable_props]
 
     def create_img_url(self, url):
 

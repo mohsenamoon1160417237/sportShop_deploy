@@ -1,9 +1,13 @@
-from manageProduct.instaPost.define import getCreds, makeApiCall
+from projects.sportShop.manageProduct.instaPost.helpers.define import getCreds, makeApiCall
 
-from manageProduct.models.instaStorage import InstaStorage
+from projects.sportShop.manageProduct.models.instaStorage import InstaStorage
 
 
 class getLongLivedAccessToken:
+
+    def __init__(self, logger):
+
+        self.logger = logger
 
     def sendRequest(self, params):
         """ Get long lived access token
@@ -24,7 +28,7 @@ class getLongLivedAccessToken:
 
         return makeApiCall(url, endpointParams, params['debug'])  # make the api call
 
-    def doGetToken(self):
+    def do_task(self):
 
         params = getCreds()  # get creds
         params['debug'] = 'yes'  # set debug
@@ -36,3 +40,5 @@ class getLongLivedAccessToken:
         insta_storage = InstaStorage.objects.first()
         insta_storage.access_token = acc_token
         insta_storage.save()
+
+        self.logger.info("Successfully got long lived access token!")

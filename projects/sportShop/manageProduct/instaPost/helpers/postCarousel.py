@@ -1,15 +1,16 @@
 import time
-from define import getCreds, makeApiCall
+from projects.sportShop.manageProduct.instaPost.helpers.define import getCreds, makeApiCall
+import json
 
 
 class PostInstagramContent:
 
-    def __init__(self, img_url, caption):
+    def __init__(self, caption, img_urls: list):
 
-        self.img_url = img_url
         self.caption = caption
+        self.img_urls = img_urls
 
-    def createMediaObject(self, params):
+    def createOneItmContainer(self, params):
 
         """ Create media object
         Args:
@@ -25,7 +26,7 @@ class PostInstagramContent:
         url = params['endpoint_base'] + params['instagram_account_id'] + '/media'  # endpoint url
 
         endpointParams = dict()  # parameter to send to the endpoint
-        endpointParams['caption'] = params['caption']  # caption for the post
+        endpointParams['caption'] = self.caption  # caption for the post
         endpointParams['access_token'] = params['access_token']  # access token
 
         if 'IMAGE' == params['media_type']:  # posting image
@@ -98,17 +99,9 @@ class PostInstagramContent:
 
         return makeApiCall(url, endpointParams, 'GET')  # make the api call
 
-    def doUpload(self):
+    def handleAPIResponse(self, objId, params):
 
-        params = getCreds()  # get creds from defines
-
-        params['media_type'] = 'IMAGE'  # type of asset
-
-        params['media_url'] =  'https://upload.wikimedia.org/wikipedia/commons/7/7c/Flower_%28166180281%29.jpeg' # url on public server for the post
-        params['caption'] = 'hello'
-
-        imageMediaObjectResponse = self.createMediaObject(params)  # create a media object through the api
-        imageMediaObjectId = imageMediaObjectResponse['json_data']['id']  # id of the media object that was created
+        imageMediaObjectId = objId['json_data']['id']  # id of the media object that was created
         imageMediaStatusCode = 'IN_PROGRESS'
 
         print("\n---- IMAGE MEDIA OBJECT -----\n")  # title
@@ -116,7 +109,8 @@ class PostInstagramContent:
         print("\t" + imageMediaObjectId)  # id of the object
 
         while imageMediaStatusCode != 'FINISHED':  # keep checking until the object status is finished
-            imageMediaObjectStatusResponse = self.getMediaObjectStatus(imageMediaObjectId, params)  # check the status on the object
+            imageMediaObjectStatusResponse = self.getMediaObjectStatus(imageMediaObjectId,
+                                                                       params)  # check the status on the object
             imageMediaStatusCode = imageMediaObjectStatusResponse['json_data']['status_code']  # update status code
 
             print("\n---- IMAGE MEDIA OBJECT STATUS -----\n")  # display status response
@@ -125,12 +119,42 @@ class PostInstagramContent:
 
             time.sleep(5)  # wait 5 seconds if the media object is still being processed
 
-        publishImageResponse = self.publishMedia(imageMediaObjectId, params)  # publish the post to instagram
+        return imageMediaObjectId
+
+    def createContainerIDs(self):
+
+        containerIDs = []
+
+        for img_url in self.img_urls:
+
+            params = getCreds()  # get creds from defines
+
+            params['media_type'] = 'IMAGE'  # type of asset
+            params['is_carousel_item'] = True
+            params['media_url'] = img_url  # url on public server for the post
+
+            imageMediaObjectResponse = self.createOneItmContainer(params)# create a media object through the api
+            objectId = self.handleAPIResponse(imageMediaObjectResponse, params)
+            containerIDs.append(objectId)
+
+        return containerIDs
+
+    def createCarouselContainer(self):
+
+        params = getCreds()
+
+        params['media_type'] = 'CAROUSEL'
+        params['children'] = json.dumps(self.createContainerIDs())
+        params['caption'] = self.caption
+
+        url = params['endpoint_base'] + params['instagram_account_id'] + '/media'
+
+        carouselObjectResp = makeApiCall(url, params, 'POST')
+        carouselObjectId = self.handleAPIResponse(carouselObjectResp, params)
+
+        publishImageResponse = self.publishMedia(carouselObjectId, params)  # publish the post to instagram
 
         print("\n---- PUBLISHED IMAGE RESPONSE -----\n")  # title
         print("\tResponse:")  # label
         print(publishImageResponse['json_data_pretty'])  # json response from ig api
 
-
-postObj = PostInstagramContent('', '')
-postObj.doUpload()
