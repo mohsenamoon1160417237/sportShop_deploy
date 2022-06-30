@@ -16,8 +16,8 @@ class PrepareCaptionImage:
 
         an_prods = DefineProduct.objects.annotate(props_posted_count=Count('props',
                                                                            filter=Q(props__insta_posted=True)),
-                                                  props_not_posted_count=Count('props'),
-                                                                                filter=Q(props__insta_posted=False))
+                                                  props_not_posted_count=Count('props',
+                                                                                filter=Q(props__insta_posted=False)))
         prods = an_prods.filter(props_posted_count__gt=0,
                                 props_not_posted_count__gt=0,
                                 insta_perm=True)
