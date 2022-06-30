@@ -28,16 +28,21 @@ class PostInsta:
                 print(not_posted_props.count())
                 print(postable_props.count())
 
-                postObj = PostInstagramContent(caption,
-                                               img_urls)
+                if postable_props.count() != 0:
 
-                postObj.createCarouselContainer()
+                    postObj = PostInstagramContent(caption,
+                                                   img_urls)
 
-                for prop in postable_props:
-                    prop.insta_posted = True
-                    prop.save()
+                    postObj.createCarouselContainer()
 
-                self.logger.info("posted!")
+                    for prop in postable_props:
+                        prop.insta_posted = True
+                        prop.save()
+
+                    self.logger.info("posted!")
+
+                else:
+                    self.logger.info("No result!")
 
             elif ls is None:
 
