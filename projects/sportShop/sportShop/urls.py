@@ -19,11 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from ..manageProduct.views.base import BaseView
-
 
 urlpatterns = [
-    path('', BaseView.as_view()),
+    path('', include("manageProduct.base_url")),
     path('admin/', admin.site.urls),
     path('product/', include('manageProduct.urls')),
     path('accounts/', include('userAccount.urls')),
