@@ -102,7 +102,7 @@ class PostInstagramContent:
     def handleAPIResponse(self, objId, params):
 
         imageMediaObjectId = objId['json_data']['id']  # id of the media object that was created
-        print(imageMediaObjectId)
+        print(objId)
         imageMediaStatusCode = 'IN_PROGRESS'
 
         print("\n---- IMAGE MEDIA OBJECT -----\n")  # title
