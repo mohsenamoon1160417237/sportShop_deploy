@@ -14,13 +14,16 @@ class PrepareCaptionImage:
 
     def get_prod(self):
 
-        an_prods = DefineProduct.objects.annotate(props_not_posted_count=Count('props', filter=Q(props__insta_posted=False)))
-        prods = an_prods.filter(props_not_posted_count__gt=0,
-                                props_not_posted_count__lt=Count('props'),
+        an_prods = DefineProduct.objects.annotate(props_posted_count=Count('props',
+                                                                           filter=Q(props__insta_posted=True)),
+                                                  props_not_posted_count=Count('props'),
+                                                                                filter=Q(props__insta_posted=False))
+        prods = an_prods.filter(props_posted_count__gt=0,
+                                props_not_posted_count__gt=0,
                                 insta_perm=True)
+
         if not prods.exists():
-            prods = an_prods.filter(props_not_posted_count=Count('props'),
-                                    props_not_posted_count__gt=0,
+            prods = an_prods.filter(props_not_posted_count__gt=0,
                                     insta_perm=True)
             if not prods.exists():
                 print("no product")
