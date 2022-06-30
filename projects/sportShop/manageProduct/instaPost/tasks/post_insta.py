@@ -43,8 +43,9 @@ class PostInsta:
 
                 self.logger.info("posted!")
 
-            else:
+            elif ls[1] is None:
 
+                print(ls)
                 self.logger.info("No result!")
 
             sleep(10)
