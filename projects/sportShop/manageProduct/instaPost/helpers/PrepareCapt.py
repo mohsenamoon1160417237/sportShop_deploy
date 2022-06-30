@@ -23,6 +23,7 @@ class PrepareCaptionImage:
                                     props_not_posted_count__gt=0,
                                     insta_perm=True)
             if not prods.exists():
+                print("no product")
                 return None
         return prods.first()
 
@@ -115,6 +116,7 @@ class PrepareCaptionImage:
         not_posted_props = self.get_not_posted_props(prod)
 
         if not_posted_props is None:
+            print("no props")
             return None
 
         if not_posted_props.count() > 3:
