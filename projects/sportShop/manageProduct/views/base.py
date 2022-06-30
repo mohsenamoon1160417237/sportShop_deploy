@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
 
 
-def base_view(request):
+class BaseView(GenericAPIView):
 
-    return render(request, '../base.html')
+    def get(self, request):
+
+        return Response({'status': 'coming soon'})
