@@ -25,6 +25,9 @@ class PostInsta:
                 not_posted_props = ls[1]
                 postable_props = ls[2]
 
+                print(not_posted_props.count())
+                print(postable_props.count())
+
                 postObj = PostInstagramContent(caption,
                                                img_urls)
 
