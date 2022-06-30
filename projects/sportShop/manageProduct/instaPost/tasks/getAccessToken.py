@@ -1,6 +1,6 @@
-from projects.sportShop.manageProduct.instaPost.helpers.define import getCreds, makeApiCall
+from ..helpers.define import getCreds, makeApiCall
 
-from projects.sportShop.manageProduct.models.instaStorage import InstaStorage
+from ...models.instaStorage import InstaStorage
 
 
 class getLongLivedAccessToken:

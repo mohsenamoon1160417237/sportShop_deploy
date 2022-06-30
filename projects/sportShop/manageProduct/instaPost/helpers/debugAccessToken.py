@@ -1,4 +1,4 @@
-from define import getCreds, makeApiCall
+from .define import getCreds, makeApiCall
 import datetime
 
 

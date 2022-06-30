@@ -1,5 +1,5 @@
 import time
-from projects.sportShop.manageProduct.instaPost.helpers.define import getCreds, makeApiCall
+from .define import getCreds, makeApiCall
 import json
 
 

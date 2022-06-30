@@ -1,7 +1,7 @@
-from projects.sportShop.manageProduct.models.defineProduct import DefineProduct
-from projects.sportShop.manageProduct.models.productProp import ProductProp
-from projects.sportShop.manageProduct.models.productAttr import ProductAttr
-from projects.sportShop.manageProduct.models.galleryImage import GalleryImage
+from ...models.defineProduct import DefineProduct
+from ...models.productProp import ProductProp
+from ...models.productAttr import ProductAttr
+from ...models.galleryImage import GalleryImage
 
 from django.db.models import Count, Q
 
