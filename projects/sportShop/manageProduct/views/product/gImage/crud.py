@@ -7,9 +7,9 @@ from django.db.models import Q
 from rest_framework.parsers import (MultiPartParser,
                                     FormParser)
 
-from manageProduct.models.galleryImage import GalleryImage
+from ....models.galleryImage import GalleryImage
 
-from manageProduct.serializers.product.gImage import ProdGalImageSz
+from ....serializers.product.gImage import ProdGalImageSz
 
 import os
 

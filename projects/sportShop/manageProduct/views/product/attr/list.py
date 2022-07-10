@@ -3,10 +3,10 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from manageProduct.models.defineProduct import DefineProduct
-from manageProduct.models.productAttr import ProductAttr
+from ....models.defineProduct import DefineProduct
+from ....models.productAttr import ProductAttr
 
-from manageProduct.serializers.product.attr import ProdAttrSz
+from ....serializers.product.attr import ProdAttrSz
 
 
 class ProdAttrList(GenericAPIView):

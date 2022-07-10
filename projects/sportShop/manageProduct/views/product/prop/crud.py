@@ -3,9 +3,9 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from manageProduct.models.productProp import ProductProp
+from ....models.productProp import ProductProp
 
-from manageProduct.serializers.product.prop import ProdPropSz
+from ....serializers.product.prop import ProdPropSz
 
 
 class HandleProdProp(GenericAPIView):

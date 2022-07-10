@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from manageProduct.models.productCategory import ProductCategory
-from manageProduct.models.galleryImage import GalleryImage
+from ...models.productCategory import ProductCategory
+from ...models.galleryImage import GalleryImage
 
-from manageProduct.serializers.product.gImage import ProdGalImageSz
+from ..product.gImage import ProdGalImageSz
 
 
 class AllProdCatSz(serializers.ModelSerializer):

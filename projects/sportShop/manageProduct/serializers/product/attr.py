@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from manageProduct.models.productAttr import ProductAttr
-from manageProduct.models.defineProduct import DefineProduct
+from ...models.productAttr import ProductAttr
+from ...models.defineProduct import DefineProduct
 
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError

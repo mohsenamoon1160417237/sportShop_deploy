@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from manageProduct.models.productCategory import ProductCategory
+from ...models.productCategory import ProductCategory
 
 from django.shortcuts import get_object_or_404
 

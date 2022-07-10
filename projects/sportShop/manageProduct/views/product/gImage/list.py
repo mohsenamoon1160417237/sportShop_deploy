@@ -3,10 +3,10 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from manageProduct.models.galleryImage import GalleryImage
-from manageProduct.models.defineProduct import DefineProduct
+from ....models.galleryImage import GalleryImage
+from ....models.defineProduct import DefineProduct
 
-from manageProduct.serializers.product.gImage import ProdGalImageSz
+from ....serializers.product.gImage import ProdGalImageSz
 
 
 class ProdGalImageList(GenericAPIView):

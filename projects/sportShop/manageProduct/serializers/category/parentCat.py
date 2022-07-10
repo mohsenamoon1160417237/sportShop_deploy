@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from manageProduct.models.productCategory import ProductCategory
+from ...models.productCategory import ProductCategory
 
 
 class ParentCatSz(serializers.ModelSerializer):

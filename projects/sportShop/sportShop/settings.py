@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'manageProduct',
     'userAccount',
     'rest_framework_simplejwt.token_blacklist',
-    'django_celery_beat'
+    'django_celery_beat',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [

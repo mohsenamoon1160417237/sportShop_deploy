@@ -3,9 +3,9 @@ from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
-from manageProduct.serializers.category.category import ProductCatSz
+from ...serializers.category.category import ProductCatSz
 
-from manageProduct.models.productCategory import ProductCategory
+from ...models.productCategory import ProductCategory
 
 
 class HandleProductCat(GenericAPIView):
