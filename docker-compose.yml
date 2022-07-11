@@ -90,16 +90,16 @@ services:
     container_name: sportShop_nginx
     restart: always
 
-  #certbot:
+  certbot:
 
-    #image: certbot/certbot
-    #container_name: sportShop_certbot
-    #env_file:
-    #  - helpers/env/main.env
-    #volumes:
-    # - ./certbot/www/:/var/www/certbot/:rw
-    # - ./certbot/conf:/etc/letsencrypt/:rw
-    #command: certonly --webroot --webroot-path /var/www/certbot/ --force-renewal --email dramatic225@gmail.com -d quicksmart.pro --agree-tos
+    image: certbot/certbot
+    container_name: sportShop_certbot
+    env_file:
+      - helpers/env/main.env
+    volumes:
+     - ./certbot/www/:/var/www/certbot/:rw
+     - ./certbot/conf:/etc/letsencrypt/:rw
+    command: certonly --webroot --webroot-path /var/www/certbot/ --force-renewal --email dramatic225@gmail.com -d quicksmart.pro --agree-tos
 
   rabbitmq:
 
