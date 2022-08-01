@@ -82,24 +82,13 @@ services:
       - sport_shop_volume:/sportShop
       - nginx_log_volume:/var/log/nginx
       - nginx_conf:/etc/nginx/conf.d/
-      - ./certbot/conf:/etc/nginx/ssl/:ro
-      - ./certbot/www:/var/www/certbot/:ro
+      #- ./certbot/conf:/etc/nginx/ssl/:ro
+      #- ./certbot/www:/var/www/certbot/:ro
     ports:
       - 80:80
       - 443:443
     container_name: sportShop_nginx
     restart: always
-
-  certbot:
-
-    image: certbot/certbot
-    container_name: sportShop_certbot
-    env_file:
-      - helpers/env/main.env
-    volumes:
-     - ./certbot/www/:/var/www/certbot/:rw
-     - ./certbot/conf:/etc/letsencrypt/:rw
-    command: certonly --webroot --webroot-path /var/www/certbot/ --force-renewal --email dramatic225@gmail.com -d quicksmart.pro --agree-tos
 
   rabbitmq:
 
