@@ -1,10 +1,9 @@
 from django.db import models
 
-from .productCategory import ProductCategory
+from manageProduct.models import ProductCategory
 
 
 class DefineProduct(models.Model):
-
     cat = models.ForeignKey(ProductCategory,
                             on_delete=models.CASCADE,
                             related_name='product')

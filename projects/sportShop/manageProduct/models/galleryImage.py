@@ -1,11 +1,12 @@
 from django.db import models
 
-from .defineProduct import DefineProduct
-from .productCategory import ProductCategory
+from manageProduct.models import (
+    DefineProduct,
+    ProductCategory
+)
 
 
 class GalleryImage(models.Model):
-
     product = models.ForeignKey(DefineProduct,
                                 on_delete=models.CASCADE,
                                 null=True)

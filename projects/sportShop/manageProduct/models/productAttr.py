@@ -1,10 +1,9 @@
 from django.db import models
 
-from .defineProduct import DefineProduct
+from manageProduct.models import DefineProduct
 
 
 class ProductAttr(models.Model):
-
     product = models.ForeignKey(DefineProduct,
                                 on_delete=models.CASCADE)
     key = models.CharField(max_length=30)
@@ -13,5 +12,4 @@ class ProductAttr(models.Model):
                             blank=True)
 
     class Meta:
-
         unique_together = [('product', 'key')]

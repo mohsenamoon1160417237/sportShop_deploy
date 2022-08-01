@@ -1,10 +1,9 @@
 from django.db import models
 
-from .defineProduct import DefineProduct
+from manageProduct.models import DefineProduct
 
 
 class ProductProp(models.Model):
-
     product = models.ForeignKey(DefineProduct,
                                 on_delete=models.CASCADE,
                                 related_name='props')
@@ -18,7 +17,7 @@ class ProductProp(models.Model):
                              null=True,
                              blank=True)
     price = models.DecimalField(decimal_places=2,
-                                 max_digits=20)
+                                max_digits=20)
     stock_count = models.PositiveIntegerField(default=0)
     pre_order_count = models.PositiveIntegerField(default=0)
     insta_posted = models.BooleanField(default=False)
