@@ -1,7 +1,7 @@
 from django.db import models
 
 from userAccount.models import CustomerUser
-from manageProduct.models import ProductProp
+from .productProp import ProductProp
 
 
 class ProdPreOrder(models.Model):

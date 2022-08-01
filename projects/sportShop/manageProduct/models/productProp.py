@@ -1,6 +1,6 @@
 from django.db import models
 
-from manageProduct.models import DefineProduct
+from .defineProduct import DefineProduct
 
 
 class ProductProp(models.Model):

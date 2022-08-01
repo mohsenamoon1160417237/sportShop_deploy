@@ -1,9 +1,7 @@
 from django.db import models
 
-from manageProduct.models import (
-    DefineProduct,
-    ProductCategory
-)
+from .defineProduct import DefineProduct
+from .productCategory import ProductCategory
 
 
 class GalleryImage(models.Model):

@@ -1,6 +1,6 @@
 from django.db import models
 
-from manageProduct.models import ProductCategory
+from .productCategory import ProductCategory
 
 
 class DefineProduct(models.Model):
